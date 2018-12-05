@@ -9,8 +9,11 @@ def main():
     #read in all file names
     fileNameCellA = sys.argv[1]
     fileNameCellB = sys.argv[2]
-    fileNameCellC = sys.argv[3]
-    fileNameCellD = sys.argv[4]
+
+    #collect names of the cell lines from each command line input
+    #will contain a list of the filename when split at the _, name of cell line should be 3rd object (@ [2])
+    nameCellLineA = sys.argv[1].strip.split('_')
+    nameCellLineB = sys.argv[2].strip.split('_')
 
 
     #all necessary containers for comparison for cell line A
@@ -94,6 +97,10 @@ def main():
                 leftAndRightGenesB.extend((left_rightGene[0], left_rightGene[1]))
     #if we are given 4 cell lines, then we know we arent handling bru-chase/seq and we should do proper analysis
     if sys.argv[3] and sys.argv[4]:
+        fileNameCellC = sys.argv[3]
+        fileNameCellD = sys.argv[4]
+        nameCellLineC = sys.argv[3].strip.split('_')
+        nameCellLineD = sys.argv[4].strip.split('_')
         if os.path.exists(fileNameCellC):
             with open(fileNameCellC, 'r') as infile:
                 for line in infile:
@@ -163,7 +170,8 @@ def main():
         comGenesA_C_D = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesC), set(leftAndRightGenesD))
         comGenesB_C_D = set.intersection(set(leftAndRightGenesB), set(leftAndRightGenesC), set(leftAndRightGenesD))
         comGenesA_B_C_D = set.intersection(set(leftAndRightGenesB), set(leftAndRightGenesA), set(leftAndRightGenesC), set(leftAndRightGenesD))
-        #create table to show number of fusions shared
+        #create table to show number of fusions shared and number of genes shared between cell lines
+            #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
         FusionNumberTable = BeautifulTable()
         FusionNumberTable.column_headers("Connection", "# of Fusions Shared", "# of Genes Shared")
         FusionNumberTable.append_row("A-B", len(AtoBNameConnections), len(comGenesA_B))
@@ -186,7 +194,6 @@ def main():
         FusionNumberTable.intersection_char = ''
         FusionNumberTable.column_separator_char = ':'
         #Create the tables for each gene fusion connection
-        #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
         FusionTable = BeautifulTable()
         FusionTable.column_headers("Connection","Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion")
         for fusion in AtoBNameConnections:
@@ -285,8 +292,6 @@ def main():
         FusionTableThreePlus.row_separator_char = ''
         FusionTableThreePlus.intersection_char = ''
         FusionTableThreePlus.column_separator_char = ':'
-
-
         #create table to describe the genes seen multiple times within cell lines
         FusionTableGeneCommonalities = BeautifulTable()
         FusionTableGeneCommonalities.column_headers("Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B", "Occurences in Cell Line C", "Occurences in Cell Line D")
@@ -313,6 +318,37 @@ def main():
         FusionTableGeneCommonalities.row_separator_char = ''
         FusionTableGeneCommonalities.intersection_char = ''
         FusionTableGeneCommonalities.column_separator_char = ':'
+
+        #start printing everything
+        print("A refers to %s, B refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
+        for i in range(3):
+            print("")
+        print("Common Genes Seen In Cell Line Comparisons")
+        print("")
+        print(FusionNumberTable)
+
+        for i in range(3):
+            print("")
+        print("Fusions Seen in 2 Cell Lines")
+        print("")
+        print(FusionTable)
+
+        for i in range(3):
+            print("")
+        print("Fusions Seen in 3+ Cell Lines")
+        print("")
+        print(FusionTableThreePlus)
+
+        for i in range(3):
+            print("")
+        print("Frequent Genes and Their Relations")
+        print("")
+        print(FusionTableGeneCommonalities)
+
+
+
+
+
 
     #dealing with the bru-chase/seq data when only two folders are given on the command line
     else:
@@ -371,6 +407,31 @@ def main():
         FusionTableGeneCommonalities.row_separator_char = ''
         FusionTableGeneCommonalities.intersection_char = ''
         FusionTableGeneCommonalities.column_separator_char = ':'
+
+        print("A refers to %s, B refers to %s, B refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
+        for i in range(3):
+            print("")
+        print("Common Genes Seen In Cell Line Comparisons")
+        print("")
+        print(FusionNumberTable)
+
+        for i in range(3):
+            print("")
+        print("Fusions Seen in 2 Cell Lines")
+        print("")
+        print(FusionTable)
+
+        for i in range(3):
+            print("")
+        print("Fusions Seen in 3+ Cell Lines")
+        print("")
+        print(FusionTableThreePlus)
+
+        for i in range(3):
+            print("")
+        print("Frequent Genes and Their Relations")
+        print("")
+        print(FusionTableGeneCommonalities)
 
 
 
