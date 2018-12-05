@@ -324,6 +324,10 @@ def main():
         FusionTableThreePlus.width_exceed_policy = BeautifulTable.WEP_WRAP
         FusionTableGeneCommonalities.width_exceed_policy = BeautifulTable.WEP_WRAP
         FusionNumberTable.width_exceed_policy = BeautifulTable.WEP_WRAP
+        FusionTable.sort("Fusion Name")
+        FusionTableThreePlus.sort("Fusion")
+        FusionTableGeneCommonalities.sort("Common Gene")
+        FusionNumberTable.sort("# of Fusions Shared")
 
 
 
@@ -411,7 +415,7 @@ def main():
         FusionTableGeneCommonalities.intersection_char = ''
         FusionTableGeneCommonalities.column_separator_char = ':'
 
-        print("A refers to %s, B refers to %s" % (nameCellLineA[2], nameCellLineB[2]))
+        #print("A refers to %s, B refers to %s" % (nameCellLineA[2], nameCellLineB[2]))
         for i in range(3):
             print("")
         print("Common Genes Seen In Cell Line Comparisons")
