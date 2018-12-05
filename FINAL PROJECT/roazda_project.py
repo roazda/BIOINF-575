@@ -6,6 +6,7 @@ from collections import Counter
 
 
 def main():
+    #read in all file names
     fileNameCellA = sys.argv[1]
     fileNameCellB = sys.argv[2]
     fileNameCellC = sys.argv[3]
@@ -178,6 +179,15 @@ def main():
         FusionNumberTable.append_row("A-C-D", len(AtoCtoDNameConnections), len(comGenesA_C_D))
         FusionNumberTable.append_row("B-C-D", len(BtoCtoDNameConnections), len(comGenesB_C_D))
         FusionNumberTable.append_row("A-B-C-D", len(AtoBtoCtoDNameConnections), len(comGenesA_B_C_D))
+        FusionNumberTable.left_border_char = 'l'
+        FusionNumberTable.right_border_char = 'l'
+        FusionNumberTable.top_border_char = '~'
+        FusionNumberTable.bottom_border_char = '~'
+        FusionNumberTable.header_separator_char = '='
+        FusionNumberTable.row_separator_char = ''
+        FusionNumberTable.intersection_char = ''
+        FusionNumberTable.column_separator_char = ':'
+
 
     #Create the tables for each gene fusion connection
     #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
@@ -219,6 +229,14 @@ def main():
             leftBreakDiff = int(leftGeneBreakCellC[fusion]) - int(leftGeneBreakCellD[fusion])
             rightBreakDiff = int(rightGeneBreakCellC[fusion]) - int(rightGeneBreakCellD[fusion])
             FusionTable.append_row("C-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellC[fusion])
+        FusionTable.left_border_char = 'l'
+        FusionTable.right_border_char = 'l'
+        FusionTable.top_border_char = '~'
+        FusionTable.bottom_border_char = '~'
+        FusionTable.header_separator_char = '='
+        FusionTable.row_separator_char = ''
+        FusionTable.intersection_char = ''
+        FusionTable.column_separator_char = ':'
 
         #create table to describe connections of fusions in 3+ cell lines
         FusionTableThreePlus = BeautifulTable()
@@ -263,6 +281,15 @@ def main():
             rightBreakSample = [rightGeneBreakCellA[fusion], rightGeneBreakCellC[fusion], rightGeneBreakCellD[fusion], rightGeneBreakCellD]
             rightStDev = stdev(rightBreakSample)
             FusionTableThreePlus.append_row(fusion, 'A-B-C-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion])
+        FusionTableThreePlus.left_border_char = 'l'
+        FusionTableThreePlus.right_border_char = 'l'
+        FusionTableThreePlus.top_border_char = '~'
+        FusionTableThreePlus.bottom_border_char = '~'
+        FusionTableThreePlus.header_separator_char = '='
+        FusionTableThreePlus.row_separator_char = ''
+        FusionTableThreePlus.intersection_char = ''
+        FusionTableThreePlus.column_separator_char = ':'
+
 
         #create table to describe the genes seen multiple times within cell lines
         FusionTableGeneCommonalities = BeautifulTable()
@@ -282,6 +309,14 @@ def main():
                 d_occur = mostComGenesD[gene]
             if a_occur > 1 or b_occur > 1 or c_occur > 1 or d_occur >1:
                 FusionTableGeneCommonalities.append_row(gene, a_occur, b_occur, c_occur, d_occur)
+        FusionTableGeneCommonalities.left_border_char = 'l'
+        FusionTableGeneCommonalities.right_border_char = 'l'
+        FusionTableGeneCommonalities.top_border_char = '~'
+        FusionTableGeneCommonalities.bottom_border_char = '~'
+        FusionTableGeneCommonalities.header_separator_char = '='
+        FusionTableGeneCommonalities.row_separator_char = ''
+        FusionTableGeneCommonalities.intersection_char = ''
+        FusionTableGeneCommonalities.column_separator_char = ':'
 
     #dealing with the bru-chase/seq data when only two folders are given on the command line
     else:
@@ -290,10 +325,19 @@ def main():
         mostComGenesA = Counter(leftAndRightGenesA)
         mostComGenesB = Counter(leftAndRightGenesB)
         comGenesA_B = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesB))
-        FusionNumberTable = BeautifulTable()
         #make its own general conection table
+        FusionNumberTable = BeautifulTable()
         FusionNumberTable.column_headers("Connection", "# of Fusions Shared", "# of Genes Shared")
         FusionNumberTable.append_row("A-B", len(AtoBNameConnections), len(comGenesA_B))
+        FusionNumberTable.left_border_char = 'l'
+        FusionNumberTable.right_border_char = 'l'
+        FusionNumberTable.top_border_char = '~'
+        FusionNumberTable.bottom_border_char = '~'
+        FusionNumberTable.header_separator_char = '='
+        FusionNumberTable.row_separator_char = ''
+        FusionNumberTable.intersection_char = ''
+        FusionNumberTable.column_separator_char = ':'
+
         #make its own connection tables
         FusionTable = BeautifulTable()
         FusionTable.column_headers("Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion")
@@ -303,6 +347,14 @@ def main():
             leftBreakDiff = int(leftGeneBreakCellA[fusion]) - int(leftGeneBreakCellB[fusion])
             rightBreakDiff = int(rightGeneBreakCellA[fusion]) - int(rightGeneBreakCellB[fusion])
             FusionTable.append_row(fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion])
+        FusionTable.left_border_char = 'l'
+        FusionTable.right_border_char = 'l'
+        FusionTable.top_border_char = '~'
+        FusionTable.bottom_border_char = '~'
+        FusionTable.header_separator_char = '='
+        FusionTable.row_separator_char = ''
+        FusionTable.intersection_char = ''
+        FusionTable.column_separator_char = ':'
         #make a table showing commonalities in gene
         FusionTableGeneCommonalities = BeautifulTable()
         FusionTableGeneCommonalities.column_headers("Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B")
@@ -315,6 +367,15 @@ def main():
                 b_occur = mostComGenesB[gene]
             if a_occur > 1 or b_occur > 1 or c_occur > 1 or d_occur >1:
                 FusionTableGeneCommonalities.append_row(gene, a_occur, b_occur)
+        FusionTableGeneCommonalities.left_border_char = 'l'
+        FusionTableGeneCommonalities.right_border_char = 'l'
+        FusionTableGeneCommonalities.top_border_char = '~'
+        FusionTableGeneCommonalities.bottom_border_char = '~'
+        FusionTableGeneCommonalities.header_separator_char = '='
+        FusionTableGeneCommonalities.row_separator_char = ''
+        FusionTableGeneCommonalities.intersection_char = ''
+        FusionTableGeneCommonalities.column_separator_char = ':'
+
 
 
 
