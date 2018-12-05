@@ -295,7 +295,7 @@ def main():
         #create table to describe the genes seen multiple times within cell lines
         FusionTableGeneCommonalities = BeautifulTable()
         FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B", "Occurences in Cell Line C", "Occurences in Cell Line D"]
-        for gene in totalGeneList:
+        for gene in set(totalGeneList):
             a_occur = 0
             b_occur = 0
             c_occur = 0
@@ -327,7 +327,7 @@ def main():
         FusionTable.sort("Fusion Name")
         FusionTableThreePlus.sort("Fusion")
         FusionTableGeneCommonalities.sort("Common Gene")
-        FusionNumberTable.sort("# of Fusions Shared")
+        FusionNumberTable.sort("# of Fusions Shared", reverse = 1)
 
 
 
