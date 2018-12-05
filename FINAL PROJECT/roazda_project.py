@@ -92,7 +92,7 @@ def main():
                 rightGeneBreakCellB.update({parts[0]: right_break[1]})
                 annotsCellB.update({parts[0]: parts[16]})
                 leftAndRightGenesB.extend((left_rightGene[0], left_rightGene[1]))
-
+    #if we are given 4 cell lines, then we know we arent handling bru-chase/seq and we should do proper analysis
     if sys.argv[3] and sys.argv[4]:
         if os.path.exists(fileNameCellC):
             with open(fileNameCellC, 'r') as infile:
@@ -132,8 +132,7 @@ def main():
                     rightGeneBreakCellD.update({parts[0]: right_break[1]})
                     annotsCellD.update({parts[0]: parts[16]})
                     leftAndRightGenesD.extend((left_rightGene[0], left_rightGene[1]))
-
-    #add to each set the fusions that are shared among the cell lines being compared
+        #add to each set the fusions that are shared among the cell lines being compared
         totalGeneList = leftAndRightGenesA + leftAndRightGenesB + leftAndRightGenesC + leftAndRightGenesD
         AtoBNameConnections = set.intersection(fusionNameCellA, fusionNameCellB)
         AtoCNameConnections = set.intersection(fusionNameCellA, fusionNameCellC)
@@ -146,13 +145,13 @@ def main():
         AtoCtoDNameConnections = set.intersection(fusionNameCellA, fusionNameCellC, fusionNameCellD)
         BtoCtoDNameConnections = set.intersection(fusionNameCellB, fusionNameCellC, fusionNameCellD)
         AtoBtoCtoDNameConnections = set.intersection(fusionNameCellA, fusionNameCellB, fusionNameCellC, fusionNameCellD)
-
-    #create a Counter that will organize the genes into most frequent
-    #the counter is a dictionary where each key is each gene and the value will be its frequency
+        #create a Counter that will organize the genes into most frequent
+            #-the counter is a dictionary where each key is each gene and the value will be its frequency
         mostComGenesA = Counter(leftAndRightGenesA)
         mostComGenesB = Counter(leftAndRightGenesB)
         mostComGenesC = Counter(leftAndRightGenesC)
         mostComGenesD = Counter(leftAndRightGenesD)
+        #make sets of the intersection between different cell lines to find the common genes between cell lines
         comGenesA_B = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesB))
         comGenesA_C = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesC))
         comGenesA_D = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesD))
@@ -164,8 +163,7 @@ def main():
         comGenesA_C_D = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesC), set(leftAndRightGenesD))
         comGenesB_C_D = set.intersection(set(leftAndRightGenesB), set(leftAndRightGenesC), set(leftAndRightGenesD))
         comGenesA_B_C_D = set.intersection(set(leftAndRightGenesB), set(leftAndRightGenesA), set(leftAndRightGenesC), set(leftAndRightGenesD))
-
-    #create table to show number of fusions shared
+        #create table to show number of fusions shared
         FusionNumberTable = BeautifulTable()
         FusionNumberTable.column_headers("Connection", "# of Fusions Shared", "# of Genes Shared")
         FusionNumberTable.append_row("A-B", len(AtoBNameConnections), len(comGenesA_B))
@@ -187,10 +185,8 @@ def main():
         FusionNumberTable.row_separator_char = ''
         FusionNumberTable.intersection_char = ''
         FusionNumberTable.column_separator_char = ':'
-
-
-    #Create the tables for each gene fusion connection
-    #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
+        #Create the tables for each gene fusion connection
+        #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
         FusionTable = BeautifulTable()
         FusionTable.column_headers("Connection","Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion")
         for fusion in AtoBNameConnections:
@@ -229,6 +225,7 @@ def main():
             leftBreakDiff = int(leftGeneBreakCellC[fusion]) - int(leftGeneBreakCellD[fusion])
             rightBreakDiff = int(rightGeneBreakCellC[fusion]) - int(rightGeneBreakCellD[fusion])
             FusionTable.append_row("C-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellC[fusion])
+        #format the table to make it look all pretty :D
         FusionTable.left_border_char = 'l'
         FusionTable.right_border_char = 'l'
         FusionTable.top_border_char = '~'
@@ -237,7 +234,6 @@ def main():
         FusionTable.row_separator_char = ''
         FusionTable.intersection_char = ''
         FusionTable.column_separator_char = ':'
-
         #create table to describe connections of fusions in 3+ cell lines
         FusionTableThreePlus = BeautifulTable()
         FusionTableThreePlus.column_headers("Fusion", "Connection", "Left Gene", "Right Gene", "Left Break St Dev", "Right Break St Dev", "Annotation")
