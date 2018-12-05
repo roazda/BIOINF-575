@@ -12,8 +12,8 @@ def main():
 
     #collect names of the cell lines from each command line input
     #will contain a list of the filename when split at the _, name of cell line should be 3rd object (@ [2])
-    nameCellLineA = sys.argv[1].strip.split('_')
-    nameCellLineB = sys.argv[2].strip.split('_')
+    nameCellLineA = sys.argv[1].strip().split('_')
+    nameCellLineB = sys.argv[2].strip().split('_')
 
 
     #all necessary containers for comparison for cell line A
@@ -99,8 +99,8 @@ def main():
     if sys.argv[3] and sys.argv[4]:
         fileNameCellC = sys.argv[3]
         fileNameCellD = sys.argv[4]
-        nameCellLineC = sys.argv[3].strip.split('_')
-        nameCellLineD = sys.argv[4].strip.split('_')
+        nameCellLineC = sys.argv[3].strip().split('_')
+        nameCellLineD = sys.argv[4].strip().split('_')
         if os.path.exists(fileNameCellC):
             with open(fileNameCellC, 'r') as infile:
                 for line in infile:
@@ -173,18 +173,18 @@ def main():
         #create table to show number of fusions shared and number of genes shared between cell lines
             #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
         FusionNumberTable = BeautifulTable()
-        FusionNumberTable.column_headers("Connection", "# of Fusions Shared", "# of Genes Shared")
-        FusionNumberTable.append_row("A-B", len(AtoBNameConnections), len(comGenesA_B))
-        FusionNumberTable.append_row("A-C", len(AtoCNameConnections), len(comGenesA_C))
-        FusionNumberTable.append_row("A-D", len(AtoDNameConnections), len(comGenesA_D))
-        FusionNumberTable.append_row("B-C", len(BtoCNameConnections), len(comGenesB_C))
-        FusionNumberTable.append_row("B-D", len(BtoDNameConnections), len(comGenesB_D))
-        FusionNumberTable.append_row("C-D", len(CtoDNameConnections), len(comGenesC_D))
-        FusionNumberTable.append_row("A-B-C", len(AtoBtoCNameConnections), len(comGenesA_B_C))
-        FusionNumberTable.append_row("A-B-D", len(AtoBtoDNameConnections), len(comGenesA_B_D))
-        FusionNumberTable.append_row("A-C-D", len(AtoCtoDNameConnections), len(comGenesA_C_D))
-        FusionNumberTable.append_row("B-C-D", len(BtoCtoDNameConnections), len(comGenesB_C_D))
-        FusionNumberTable.append_row("A-B-C-D", len(AtoBtoCtoDNameConnections), len(comGenesA_B_C_D))
+        FusionNumberTable.column_headers = ["Connection", "# of Fusions Shared", "# of Genes Shared"]
+        FusionNumberTable.append_row(["A-B", len(AtoBNameConnections), len(comGenesA_B)])
+        FusionNumberTable.append_row(["A-C", len(AtoCNameConnections), len(comGenesA_C)])
+        FusionNumberTable.append_row(["A-D", len(AtoDNameConnections), len(comGenesA_D)])
+        FusionNumberTable.append_row(["B-C", len(BtoCNameConnections), len(comGenesB_C)])
+        FusionNumberTable.append_row(["B-D", len(BtoDNameConnections), len(comGenesB_D)])
+        FusionNumberTable.append_row(["C-D", len(CtoDNameConnections), len(comGenesC_D)])
+        FusionNumberTable.append_row(["A-B-C", len(AtoBtoCNameConnections), len(comGenesA_B_C)])
+        FusionNumberTable.append_row(["A-B-D", len(AtoBtoDNameConnections), len(comGenesA_B_D)])
+        FusionNumberTable.append_row(["A-C-D", len(AtoCtoDNameConnections), len(comGenesA_C_D)])
+        FusionNumberTable.append_row(["B-C-D", len(BtoCtoDNameConnections), len(comGenesB_C_D)])
+        FusionNumberTable.append_row(["A-B-C-D", len(AtoBtoCtoDNameConnections), len(comGenesA_B_C_D)])
         FusionNumberTable.left_border_char = 'l'
         FusionNumberTable.right_border_char = 'l'
         FusionNumberTable.top_border_char = '~'
@@ -195,43 +195,43 @@ def main():
         FusionNumberTable.column_separator_char = ':'
         #Create the tables for each gene fusion connection
         FusionTable = BeautifulTable()
-        FusionTable.column_headers("Connection","Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion")
+        FusionTable.column_headers = ["Connection","Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion"]
         for fusion in AtoBNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
             leftBreakDiff = int(leftGeneBreakCellA[fusion]) - int(leftGeneBreakCellB[fusion])
             rightBreakDiff = int(rightGeneBreakCellA[fusion]) - int(rightGeneBreakCellB[fusion])
-            FusionTable.append_row("A-B", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion])
+            FusionTable.append_row(["A-B", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion]])
         for fusion in AtoCNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
             leftBreakDiff = int(leftGeneBreakCellA[fusion]) - int(leftGeneBreakCellC[fusion])
             rightBreakDiff = int(rightGeneBreakCellA[fusion]) - int(rightGeneBreakCellC[fusion])
-            FusionTable.append_row("A-C", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion])
+            FusionTable.append_row(["A-C", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion]])
         for fusion in AtoDNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
             leftBreakDiff = int(leftGeneBreakCellA[fusion]) - int(leftGeneBreakCellD[fusion])
             rightBreakDiff = int(rightGeneBreakCellA[fusion]) - int(rightGeneBreakCellD[fusion])
-            FusionTable.append_row("A-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion])
+            FusionTable.append_row(["A-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion]])
         for fusion in BtoCNameConnections:
             leftGene = leftGeneCellB[fusion]
             rightGene = rightGeneCellB[fusion]
             leftBreakDiff = int(leftGeneBreakCellB[fusion]) - int(leftGeneBreakCellC[fusion])
             rightBreakDiff = int(rightGeneBreakCellB[fusion]) - int(rightGeneBreakCellC[fusion])
-            FusionTable.append_row("B-C", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellB[fusion])
+            FusionTable.append_row(["B-C", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellB[fusion]])
         for fusion in BtoDNameConnections:
             leftGene = leftGeneCellB[fusion]
             rightGene = rightGeneCellB[fusion]
             leftBreakDiff = int(leftGeneBreakCellB[fusion]) - int(leftGeneBreakCellD[fusion])
             rightBreakDiff = int(rightGeneBreakCellB[fusion]) - int(rightGeneBreakCellD[fusion])
-            FusionTable.append_row("B-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellB[fusion])
+            FusionTable.append_row(["B-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellB[fusion]])
         for fusion in CtoDNameConnections:
             leftGene = leftGeneCellC[fusion]
             rightGene = rightGeneCellC[fusion]
             leftBreakDiff = int(leftGeneBreakCellC[fusion]) - int(leftGeneBreakCellD[fusion])
             rightBreakDiff = int(rightGeneBreakCellC[fusion]) - int(rightGeneBreakCellD[fusion])
-            FusionTable.append_row("C-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellC[fusion])
+            FusionTable.append_row(["C-D", fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellC[fusion]])
         #format the table to make it look all pretty :D
         FusionTable.left_border_char = 'l'
         FusionTable.right_border_char = 'l'
@@ -243,47 +243,47 @@ def main():
         FusionTable.column_separator_char = ':'
         #create table to describe connections of fusions in 3+ cell lines
         FusionTableThreePlus = BeautifulTable()
-        FusionTableThreePlus.column_headers("Fusion", "Connection", "Left Gene", "Right Gene", "Left Break St Dev", "Right Break St Dev", "Annotation")
+        FusionTableThreePlus.column_headers = ["Fusion", "Connection", "Left Gene", "Right Gene", "Left Break St Dev", "Right Break St Dev", "Annotation"]
         for fusion in AtoBtoCNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
-            leftBreakSample = [leftGeneBreakCellA[fusion], leftGeneBreakCellB[fusion], leftGeneBreakCellC[fusion]]
+            leftBreakSample = [int(leftGeneBreakCellA[fusion]), int(leftGeneBreakCellB[fusion]), int(leftGeneBreakCellC[fusion])]
             leftStDev = stdev(leftBreakSample)
-            rightBreakSample = [rightGeneBreakCellA[fusion], rightGeneBreakCellB[fusion], rightGeneBreakCellC[fusion]]
+            rightBreakSample = [int(rightGeneBreakCellA[fusion]), int(rightGeneBreakCellB[fusion]), int(rightGeneBreakCellC[fusion])]
             rightStDev = stdev(rightBreakSample)
-            FusionTableThreePlus.append_row(fusion, 'A-B-C', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion])
+            FusionTableThreePlus.append_row([fusion, 'A-B-C', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion]])
         for fusion in AtoBtoDNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
-            leftBreakSample = [leftGeneBreakCellA[fusion], leftGeneBreakCellB[fusion], leftGeneBreakCellD[fusion]]
+            leftBreakSample = [int(leftGeneBreakCellA[fusion]), int(leftGeneBreakCellB[fusion]), int(leftGeneBreakCellD[fusion])]
             leftStDev = stdev(leftBreakSample)
-            rightBreakSample = [rightGeneBreakCellA[fusion], rightGeneBreakCellB[fusion], rightGeneBreakCellD[fusion]]
+            rightBreakSample = [int(rightGeneBreakCellA[fusion]), int(rightGeneBreakCellB[fusion]), int(rightGeneBreakCellD[fusion])]
             rightStDev = stdev(rightBreakSample)
-            FusionTableThreePlus.append_row(fusion, 'A-B-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion])
+            FusionTableThreePlus.append_row([fusion, 'A-B-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion]])
         for fusion in AtoCtoDNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
-            leftBreakSample = [leftGeneBreakCellA[fusion], leftGeneBreakCellC[fusion], leftGeneBreakCellD[fusion]]
+            leftBreakSample = [int(leftGeneBreakCellA[fusion]), int(leftGeneBreakCellC[fusion]), int(leftGeneBreakCellD[fusion])]
             leftStDev = stdev(leftBreakSample)
-            rightBreakSample = [rightGeneBreakCellA[fusion], rightGeneBreakCellC[fusion], rightGeneBreakCellD[fusion]]
+            rightBreakSample = [int(rightGeneBreakCellA[fusion]), int(rightGeneBreakCellC[fusion]), int(rightGeneBreakCellD[fusion])]
             rightStDev = stdev(rightBreakSample)
-            FusionTableThreePlus.append_row(fusion, 'A-C-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion])
+            FusionTableThreePlus.append_row([fusion, 'A-C-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion]])
         for fusion in BtoCtoDNameConnections:
             leftGene = leftGeneCellB[fusion]
             rightGene = rightGeneCellB[fusion]
-            leftBreakSample = [leftGeneBreakCellB[fusion], leftGeneBreakCellC[fusion], leftGeneBreakCellD[fusion]]
+            leftBreakSample = [int(leftGeneBreakCellB[fusion]), int(leftGeneBreakCellC[fusion]), int(leftGeneBreakCellD[fusion])]
             leftStDev = stdev(leftBreakSample)
-            rightBreakSample = [rightGeneBreakCellB[fusion], rightGeneBreakCellC[fusion], rightGeneBreakCellD[fusion]]
+            rightBreakSample = [int(rightGeneBreakCellB[fusion]), int(rightGeneBreakCellC[fusion]), int(rightGeneBreakCellD[fusion])]
             rightStDev = stdev(rightBreakSample)
-            FusionTableThreePlus.append_row(fusion, 'B-C-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion])
+            FusionTableThreePlus.append_row([fusion, 'B-C-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion]])
         for fusion in AtoBtoCtoDNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
-            leftBreakSample = [leftGeneBreakCellA[fusion], leftGeneBreakCellC[fusion], leftGeneBreakCellD[fusion], leftGeneBreakCellD]
+            leftBreakSample = [int(leftGeneBreakCellA[fusion]), int(leftGeneBreakCellB[fusion]), int(leftGeneBreakCellC[fusion]), int(leftGeneBreakCellD[fusion])]
             leftStDev = stdev(leftBreakSample)
-            rightBreakSample = [rightGeneBreakCellA[fusion], rightGeneBreakCellC[fusion], rightGeneBreakCellD[fusion], rightGeneBreakCellD]
+            rightBreakSample = [int(rightGeneBreakCellA[fusion]), int(rightGeneBreakCellB[fusion]), int(rightGeneBreakCellC[fusion]), int(rightGeneBreakCellD[fusion])]
             rightStDev = stdev(rightBreakSample)
-            FusionTableThreePlus.append_row(fusion, 'A-B-C-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion])
+            FusionTableThreePlus.append_row([fusion, 'A-B-C-D', leftGene, rightGene, leftStDev, rightStDev, annotsCellA[fusion]])
         FusionTableThreePlus.left_border_char = 'l'
         FusionTableThreePlus.right_border_char = 'l'
         FusionTableThreePlus.top_border_char = '~'
@@ -294,7 +294,7 @@ def main():
         FusionTableThreePlus.column_separator_char = ':'
         #create table to describe the genes seen multiple times within cell lines
         FusionTableGeneCommonalities = BeautifulTable()
-        FusionTableGeneCommonalities.column_headers("Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B", "Occurences in Cell Line C", "Occurences in Cell Line D")
+        FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B", "Occurences in Cell Line C", "Occurences in Cell Line D"]
         for gene in totalGeneList:
             a_occur = 0
             b_occur = 0
@@ -309,7 +309,7 @@ def main():
             if gene in mostComGenesD and mostComGenesD[gene] > 1:
                 d_occur = mostComGenesD[gene]
             if a_occur > 1 or b_occur > 1 or c_occur > 1 or d_occur >1:
-                FusionTableGeneCommonalities.append_row(gene, a_occur, b_occur, c_occur, d_occur)
+                FusionTableGeneCommonalities.append_row([gene, a_occur, b_occur, c_occur, d_occur])
         FusionTableGeneCommonalities.left_border_char = 'l'
         FusionTableGeneCommonalities.right_border_char = 'l'
         FusionTableGeneCommonalities.top_border_char = '~'
@@ -320,7 +320,7 @@ def main():
         FusionTableGeneCommonalities.column_separator_char = ':'
 
         #start printing everything
-        print("A refers to %s, B refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
+        #print("A refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
         for i in range(3):
             print("")
         print("Common Genes Seen In Cell Line Comparisons")
@@ -359,8 +359,8 @@ def main():
         comGenesA_B = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesB))
         #make its own general conection table
         FusionNumberTable = BeautifulTable()
-        FusionNumberTable.column_headers("Connection", "# of Fusions Shared", "# of Genes Shared")
-        FusionNumberTable.append_row("A-B", len(AtoBNameConnections), len(comGenesA_B))
+        FusionNumberTable.column_headers = ["Connection", "# of Fusions Shared", "# of Genes Shared"]
+        FusionNumberTable.append_row(["A-B", len(AtoBNameConnections), len(comGenesA_B)])
         FusionNumberTable.left_border_char = 'l'
         FusionNumberTable.right_border_char = 'l'
         FusionNumberTable.top_border_char = '~'
@@ -372,13 +372,13 @@ def main():
 
         #make its own connection tables
         FusionTable = BeautifulTable()
-        FusionTable.column_headers("Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion")
+        FusionTable.column_headers = ["Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion"]
         for fusion in AtoBNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
             leftBreakDiff = int(leftGeneBreakCellA[fusion]) - int(leftGeneBreakCellB[fusion])
             rightBreakDiff = int(rightGeneBreakCellA[fusion]) - int(rightGeneBreakCellB[fusion])
-            FusionTable.append_row(fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion])
+            FusionTable.append_row([fusion, leftGene, rightGene, leftBreakDiff, rightBreakDiff, annotsCellA[fusion]])
         FusionTable.left_border_char = 'l'
         FusionTable.right_border_char = 'l'
         FusionTable.top_border_char = '~'
@@ -389,7 +389,7 @@ def main():
         FusionTable.column_separator_char = ':'
         #make a table showing commonalities in gene
         FusionTableGeneCommonalities = BeautifulTable()
-        FusionTableGeneCommonalities.column_headers("Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B")
+        FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B"]
         for gene in totalGeneList:
             a_occur = 0
             b_occur = 0
@@ -398,7 +398,7 @@ def main():
             if gene in mostComGenesB and mostComGenesB[gene] > 1:
                 b_occur = mostComGenesB[gene]
             if a_occur > 1 or b_occur > 1 or c_occur > 1 or d_occur >1:
-                FusionTableGeneCommonalities.append_row(gene, a_occur, b_occur)
+                FusionTableGeneCommonalities.append_row([gene, a_occur, b_occur])
         FusionTableGeneCommonalities.left_border_char = 'l'
         FusionTableGeneCommonalities.right_border_char = 'l'
         FusionTableGeneCommonalities.top_border_char = '~'
