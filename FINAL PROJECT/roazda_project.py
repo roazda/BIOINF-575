@@ -332,29 +332,26 @@ def main():
 
 
         #start printing everything
-        #print("A refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
         for i in range(3):
             print("")
-        print("Common Genes Seen In Cell Line Comparisons")
+        print("A refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
         print("")
+        print("Common Genes Seen In Cell Line Comparisons")
         print(FusionNumberTable)
 
         for i in range(3):
             print("")
         print("Fusions Seen in 2 Cell Lines")
-        print("")
         print(FusionTable)
 
         for i in range(3):
             print("")
         print("Fusions Seen in 3+ Cell Lines")
-        print("")
         print(FusionTableThreePlus)
 
         for i in range(3):
             print("")
         print("Frequent Genes and Their Relations")
-        print("")
         print(FusionTableGeneCommonalities)
 
     #dealing with the bru-chase/seq data when only two folders are given on the command line
@@ -415,9 +412,10 @@ def main():
         FusionTableGeneCommonalities.intersection_char = ''
         FusionTableGeneCommonalities.column_separator_char = ':'
 
-        #print("A refers to %s, B refers to %s" % (nameCellLineA[2], nameCellLineB[2]))
         for i in range(3):
             print("")
+        print("A refers to %s, B refers to %s of %s cell line" % (nameCellLineA[3], nameCellLineB[3], nameCellLineA[2]))
+        print("")
         print("Common Genes Seen In Cell Line Comparisons")
         print("")
         print(FusionNumberTable)
