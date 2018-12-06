@@ -172,7 +172,7 @@ def main():
         comGenesA_B_C_D = set.intersection(set(leftAndRightGenesB), set(leftAndRightGenesA), set(leftAndRightGenesC), set(leftAndRightGenesD))
         #create table to show number of fusions shared and number of genes shared between cell lines
             #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
-        FusionNumberTable = BeautifulTable()
+        FusionNumberTable = BeautifulTable(max_width = 200)
         FusionNumberTable.column_headers = ["Connection", "# of Fusions Shared", "# of Genes Shared"]
         FusionNumberTable.append_row(["A-B", len(AtoBNameConnections), len(comGenesA_B)])
         FusionNumberTable.append_row(["A-C", len(AtoCNameConnections), len(comGenesA_C)])
@@ -194,7 +194,7 @@ def main():
         FusionNumberTable.intersection_char = ''
         FusionNumberTable.column_separator_char = ':'
         #Create the tables for each gene fusion connection
-        FusionTable = BeautifulTable()
+        FusionTable = BeautifulTable(max_width = 200)
         FusionTable.column_headers = ["Connection","Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion"]
         for fusion in AtoBNameConnections:
             leftGene = leftGeneCellA[fusion]
@@ -242,7 +242,7 @@ def main():
         FusionTable.intersection_char = ''
         FusionTable.column_separator_char = ':'
         #create table to describe connections of fusions in 3+ cell lines
-        FusionTableThreePlus = BeautifulTable()
+        FusionTableThreePlus = BeautifulTable(max_width = 200)
         FusionTableThreePlus.column_headers = ["Fusion", "Connection", "Left Gene", "Right Gene", "Left Break St Dev", "Right Break St Dev", "Annotation"]
         for fusion in AtoBtoCNameConnections:
             leftGene = leftGeneCellA[fusion]
@@ -293,7 +293,7 @@ def main():
         FusionTableThreePlus.intersection_char = ''
         FusionTableThreePlus.column_separator_char = ':'
         #create table to describe the genes seen multiple times within cell lines
-        FusionTableGeneCommonalities = BeautifulTable()
+        FusionTableGeneCommonalities = BeautifulTable(max_width = 200)
         FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B", "Occurences in Cell Line C", "Occurences in Cell Line D"]
         for gene in set(totalGeneList):
             a_occur = 0
@@ -365,7 +365,7 @@ def main():
         mostComGenesB = Counter(leftAndRightGenesB)
         comGenesA_B = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesB))
         #make its own general conection table
-        FusionNumberTable = BeautifulTable()
+        FusionNumberTable = BeautifulTable(max_width = 200)
         FusionNumberTable.column_headers = ["Connection", "# of Fusions Shared", "# of Genes Shared"]
         FusionNumberTable.append_row(["A-B", len(AtoBNameConnections), len(comGenesA_B)])
         FusionNumberTable.left_border_char = '|'
@@ -378,7 +378,7 @@ def main():
         FusionNumberTable.column_separator_char = ':'
 
         #make its own connection tables
-        FusionTable = BeautifulTable()
+        FusionTable = BeautifulTable(max_width = 200)
         FusionTable.column_headers = ["Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion"]
         for fusion in AtoBNameConnections:
             leftGene = leftGeneCellA[fusion]
@@ -395,7 +395,7 @@ def main():
         FusionTable.intersection_char = ''
         FusionTable.column_separator_char = ':'
         #make a table showing commonalities in gene
-        FusionTableGeneCommonalities = BeautifulTable()
+        FusionTableGeneCommonalities = BeautifulTable(max_width = 200)
         FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B"]
         for gene in set(totalGeneList):
             a_occur = 0
