@@ -1,0 +1,85 @@
+A refers to A172.tsv, B refers to A375.tsv, C refers to K562.tsv, D refers to KCL22.tsv
+
+Number of unique genes in A172.tsv = 21 
+Number of unique genes in A375.tsv = 17 
+Number of unique genes in K562.tsv = 64 
+Number of unique genes in KCL22.tsv = 47 
+
+Common Genes Seen In Cell Line Comparisons
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| Connection : # of Fusions Shared : # of Genes Shared |
+========================================================
+|    C-D     :          5          :         9         |
+|    B-C     :          4          :         7         |
+|    A-C     :          2          :         5         |
+|    A-B     :          1          :         2         |
+|   A-B-C    :          1          :         2         |
+|    A-D     :          0          :         1         |
+|    B-D     :          0          :         0         |
+|   A-B-D    :          0          :         0         |
+|   A-C-D    :          0          :         1         |
+|   B-C-D    :          0          :         0         |
+|  A-B-C-D   :          0          :         0         |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Frequent Genes and Their Relations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| Common Gene : Occurences in Cell Line A : Occurences in Cell Line B : Occurences in Cell Line C : Occurences in Cell Line D |
+===============================================================================================================================
+|    ABL1     :             0             :             0             :             0             :             4             |
+| AC005632.1  :             2             :             0             :             0             :             0             |
+| AC146507.1  :             0             :             0             :             2             :             2             |
+| AL137003.1  :             0             :             0             :             2             :             0             |
+|     BCR     :             0             :             0             :             0             :             4             |
+| BX510359.3  :             0             :             0             :             2             :             0             |
+|  C16orf87   :             0             :             0             :             2             :             0             |
+|   CCDC26    :             0             :             0             :             5             :             0             |
+|  COX10-AS1  :             2             :             0             :             0             :             0             |
+|    CTSC     :             0             :             0             :             0             :             2             |
+|    GSE1     :             0             :             0             :             2             :             0             |
+|    IQCE     :             2             :             0             :             0             :             0             |
+|  LINC00977  :             0             :             0             :             5             :             0             |
+|    NFAT5    :             2             :             0             :             0             :             0             |
+|    ORC6     :             0             :             0             :             2             :             0             |
+|  PAFAH1B1   :             2             :             0             :             0             :             0             |
+|    PRKCH    :             0             :             2             :             0             :             0             |
+|    RAB38    :             0             :             0             :             0             :             2             |
+|  RN7SKP48   :             0             :             2             :             2             :             0             |
+|  RN7SKP80   :             0             :             0             :             3             :             0             |
+|  RN7SL151P  :             0             :             0             :             2             :             0             |
+|  RN7SL359P  :             0             :             0             :             2             :             0             |
+|  RN7SL49P   :             0             :             0             :             3             :             0             |
+|   RN7SL5P   :             0             :             6             :             6             :             0             |
+|  RNU2-37P   :             0             :             0             :             2             :             0             |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Fusions Seen in 2 Cell Lines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| Connection :       Fusion Name       :  Left Gene  : Right Gene : Difference in Left : Difference in Righ :                                   Annotation of Fusion                                   |
+|            :                         :             :            :   Gene Breakpoint  : t Gene Breakpoint  :                                                                                          |
+========================================================================================================================================================================================================
+|    C-D     : AP000580.1--AC146507.1  : AP000580.1  : AC146507.1 :         0          :         0          :                            ["INTERCHROMOSOMAL[chr11--chr5]"]                             |
+|    C-D     :        BCR--ABL1        :     BCR     :    ABL1    :        792         :         0          : ["chimerdb_pubmed","CCLE","Klijn_CellLines","chimerdb_omim","ChimerSeq","ChimerKB","FA_C |
+|            :                         :             :            :                    :                    :       ancerSupp","Cosmic","Mitelman","ChimerPub","INTERCHROMOSOMAL[chr22--chr9]"]        |
+|    C-D     :       CTSC--RAB38       :    CTSC     :   RAB38    :        4397        :         0          : ["BodyMap","Greger_Normal","ChimerSeq","Babiceanu_Normal","INTRACHROMOSOMAL[chr11:0.12Mb |
+|            :                         :             :            :                    :                    :                                           ]"]                                            |
+|    C-D     : MIR4435-2HG--AC093616.1 : MIR4435-2HG : AC093616.1 :         0          :         0          :                            ["INTRACHROMOSOMAL[chr2:23.46Mb]"]                            |
+|    A-C     :  MTRNR2L12--AC025627.3  :  MTRNR2L12  : AC025627.3 :         0          :         0          :                            ["INTERCHROMOSOMAL[chr3--chr17]"]                             |
+|    B-C     :     PLCG2--RN7SKP48     :    PLCG2    :  RN7SKP48  :         7          :         6          :                            ["INTERCHROMOSOMAL[chr16--chr4]"]                             |
+|    A-B     :   RN7SKP71--RN7SKP48    :  RN7SKP71   :  RN7SKP48  :         -7         :         -6         :                            ["INTERCHROMOSOMAL[chr12--chr4]"]                             |
+|    A-C     :   RN7SKP71--RN7SKP48    :  RN7SKP71   :  RN7SKP48  :         0          :         0          :                            ["INTERCHROMOSOMAL[chr12--chr4]"]                             |
+|    B-C     :   RN7SKP71--RN7SKP48    :  RN7SKP71   :  RN7SKP48  :         7          :         6          :                            ["INTERCHROMOSOMAL[chr12--chr4]"]                             |
+|    B-C     :   RN7SL5P--RN7SL303P    :   RN7SL5P   : RN7SL303P  :         0          :         0          :                     ["HGNC_GENEFAM","INTERCHROMOSOMAL[chr9--chr8]"]                      |
+|    B-C     :   RN7SL5P--RN7SL833P    :   RN7SL5P   : RN7SL833P  :         0          :         0          :                     ["HGNC_GENEFAM","INTERCHROMOSOMAL[chr9--chr19]"]                     |
+|    C-D     :    RSF1--AC146507.1     :    RSF1     : AC146507.1 :         0          :         0          :                            ["INTERCHROMOSOMAL[chr11--chr5]"]                             |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Fusions Seen in 3+ Cell Lines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|       Fusion       : Connection : Left Gene : Right Gene : Left Break St Dev : Right Break St Dev :                                            Annotation                                            |
+========================================================================================================================================================================================================
+| RN7SKP71--RN7SKP48 :   A-B-C    : RN7SKP71  :  RN7SKP48  :       4.041       :       3.464        :                                ["INTERCHROMOSOMAL[chr12--chr4]"]                                 |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

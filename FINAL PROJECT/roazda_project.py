@@ -329,30 +329,49 @@ def main():
         FusionTableGeneCommonalities.sort("Common Gene")
         FusionNumberTable.sort("# of Fusions Shared", reverse = 1)
 
+        uniqueGenesA = set(list(leftGeneCellA.values()) + list(rightGeneCellA.values()))
+        uniqueGenesB = set(list(leftGeneCellB.values()) + list(rightGeneCellB.values()))
+        uniqueGenesC = set(list(leftGeneCellC.values()) + list(rightGeneCellD.values()))
+        uniqueGenesD = set(list(leftGeneCellD.values()) + list(rightGeneCellD.values()))
 
+
+
+        file = open("Star-Data.txt", "w")
 
         #start printing everything
-        for i in range(3):
-            print("")
-        print("A refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
-        print("")
-        print("Common Genes Seen In Cell Line Comparisons")
-        print(FusionNumberTable)
+
+
+        file.write("A refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
+        file.write('\n')
+        file.write('\n')
+        file.write("Number of unique genes in {} = {} \n".format(nameCellLineA[2], len(uniqueGenesA)))
+        file.write("Number of unique genes in {} = {} \n".format(nameCellLineB[2], len(uniqueGenesB)))
+        file.write("Number of unique genes in {} = {} \n".format(nameCellLineC[2], len(uniqueGenesC)))
+        file.write("Number of unique genes in {} = {} \n".format(nameCellLineD[2], len(uniqueGenesD)))
+        file.write('\n')
+        file.write("Common Genes Seen In Cell Line Comparisons")
+        file.write('\n')
+        file.write(str(FusionNumberTable))
 
         for i in range(3):
-            print("")
-        print("Fusions Seen in 2 Cell Lines")
-        print(FusionTable)
+            file.write('\n')
+        file.write("Frequent Genes and Their Relations")
+        file.write('\n')
+        file.write(str(FusionTableGeneCommonalities))
 
         for i in range(3):
-            print("")
-        print("Fusions Seen in 3+ Cell Lines")
-        print(FusionTableThreePlus)
+            file.write('\n')
+        file.write("Fusions Seen in 2 Cell Lines")
+        file.write('\n')
+        file.write(str(FusionTable))
 
         for i in range(3):
-            print("")
-        print("Frequent Genes and Their Relations")
-        print(FusionTableGeneCommonalities)
+            file.write('\n')
+        file.write("Fusions Seen in 3+ Cell Lines")
+        file.write('\n')
+        file.write(str(FusionTableThreePlus))
+
+        file.close()
 
     #dealing with the bru-chase/seq data when only two folders are given on the command line
     else:
@@ -412,24 +431,29 @@ def main():
         FusionTableGeneCommonalities.intersection_char = ''
         FusionTableGeneCommonalities.column_separator_char = ':'
 
+        file = open("Star-Bru-Chase-Data.txt", "w")
+
+        file.write("A refers to %s, B refers to %s of %s cell line" % (nameCellLineA[3], nameCellLineB[3], nameCellLineA[2]))
         for i in range(3):
-            print("")
-        print("A refers to %s, B refers to %s of %s cell line" % (nameCellLineA[3], nameCellLineB[3], nameCellLineA[2]))
-        print("")
-        print("Common Genes Seen In Cell Line Comparisons")
-        print("")
-        print(FusionNumberTable)
+            file.write('\n')
+        file.write("Common Genes Seen In Cell Line Comparisons")
+        file.write('\n')
+        file.write(str(FusionNumberTable))
 
         for i in range(3):
-            print("")
-        print("Fusions Seen in 2 Cell Lines")
-        print("")
-        print(FusionTable)
+            file.write('\n')
+        file.write("Frequent Genes and Their Relations")
+        file.write('\n')
+        file.write(str(FusionTableGeneCommonalities))
 
         for i in range(3):
-            print("")
-        print("Frequent Genes and Their Relations")
-        print("")
-        print(FusionTableGeneCommonalities)
+            file.write('\n')
+        file.write("Fusions Seen in 2 Cell Lines")
+        file.write('\n')
+        file.write(str(FusionTable))
+
+
+
+        file.close()
 if __name__ == '__main__':
     main()
