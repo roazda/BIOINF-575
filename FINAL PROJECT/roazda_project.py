@@ -96,7 +96,7 @@ def main():
                 annotsCellB.update({parts[0]: parts[16]})
                 leftAndRightGenesB.extend((left_rightGene[0], left_rightGene[1]))
     #if we are given 4 cell lines, then we know we arent handling bru-chase/seq and we should do proper analysis
-    if sys.argv[3] and sys.argv[4]:
+    if len(sys.argv) > 3:
         fileNameCellC = sys.argv[3]
         fileNameCellD = sys.argv[4]
         nameCellLineC = sys.argv[3].strip().split('_')
@@ -397,14 +397,14 @@ def main():
         #make a table showing commonalities in gene
         FusionTableGeneCommonalities = BeautifulTable()
         FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B"]
-        for gene in totalGeneList:
+        for gene in set(totalGeneList):
             a_occur = 0
             b_occur = 0
             if gene in mostComGenesA and mostComGenesA[gene] > 1:
                 a_occur = mostComGenesA[gene]
             if gene in mostComGenesB and mostComGenesB[gene] > 1:
                 b_occur = mostComGenesB[gene]
-            if a_occur > 1 or b_occur > 1 or c_occur > 1 or d_occur >1:
+            if a_occur > 1 or b_occur > 1:
                 FusionTableGeneCommonalities.append_row([gene, a_occur, b_occur])
         FusionTableGeneCommonalities.left_border_char = '|'
         FusionTableGeneCommonalities.right_border_char = '|'
@@ -427,12 +427,6 @@ def main():
         print("Fusions Seen in 2 Cell Lines")
         print("")
         print(FusionTable)
-
-        for i in range(3):
-            print("")
-        print("Fusions Seen in 3+ Cell Lines")
-        print("")
-        print(FusionTableThreePlus)
 
         for i in range(3):
             print("")
