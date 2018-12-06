@@ -294,19 +294,19 @@ def main():
         FusionTableThreePlus.column_separator_char = ':'
         #create table to describe the genes seen multiple times within cell lines
         FusionTableGeneCommonalities = BeautifulTable(max_width = 200)
-        FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B", "Occurences in Cell Line C", "Occurences in Cell Line D"]
+        FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurrences in Cell Line A", "Occurrences in Cell Line B", "Occurrences in Cell Line C", "Occurrences in Cell Line D"]
         for gene in set(totalGeneList):
             a_occur = 0
             b_occur = 0
             c_occur = 0
             d_occur = 0
-            if gene in mostComGenesA and mostComGenesA[gene] > 1:
+            if gene in mostComGenesA:
                 a_occur = mostComGenesA[gene]
-            if gene in mostComGenesB and mostComGenesB[gene] > 1:
+            if gene in mostComGenesB:
                 b_occur = mostComGenesB[gene]
-            if gene in mostComGenesC and mostComGenesC[gene] > 1:
+            if gene in mostComGenesC:
                 c_occur = mostComGenesC[gene]
-            if gene in mostComGenesD and mostComGenesD[gene] > 1:
+            if gene in mostComGenesD:
                 d_occur = mostComGenesD[gene]
             if a_occur > 1 or b_occur > 1 or c_occur > 1 or d_occur >1:
                 FusionTableGeneCommonalities.append_row([gene, a_occur, b_occur, c_occur, d_occur])
@@ -412,13 +412,13 @@ def main():
         FusionTable.column_separator_char = ':'
         #make a table showing commonalities in gene
         FusionTableGeneCommonalities = BeautifulTable(max_width = 200)
-        FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurences in Cell Line A", "Occurences in Cell Line B"]
+        FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurrences in Cell Line A", "Occurrences in Cell Line B"]
         for gene in set(totalGeneList):
             a_occur = 0
             b_occur = 0
-            if gene in mostComGenesA and mostComGenesA[gene] > 1:
+            if gene in mostComGenesA:
                 a_occur = mostComGenesA[gene]
-            if gene in mostComGenesB and mostComGenesB[gene] > 1:
+            if gene in mostComGenesB:
                 b_occur = mostComGenesB[gene]
             if a_occur > 1 or b_occur > 1:
                 FusionTableGeneCommonalities.append_row([gene, a_occur, b_occur])
