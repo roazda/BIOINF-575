@@ -1,3 +1,52 @@
+"""
+THIS IS THE WORK DONE BY BY THE CHIMERA GROUP FOR THE BIOINF 575 FINAL
+
+ASSIGNMENT DUE: 12/9/2018
+
+-This program is meant to take in up to 4 .tsv files produced from STAR-Fusion and
+ perform analysis on the chimeric fusion data produced from the STAR-Fusion programself.
+
+-The program is only command line executable. In order to execute the program first go into
+ whatever command line interface you use and change your directory to the one where this program
+ is located. Second, use the following format  in order to run the program and produce the analysis
+    $ python roazda_project.py (path to cell line 1's fusion data file) (path to cell line 2's fusion data file)
+    Example:$ python roazda_project.py star-fusion.fusion_predictions_A172.tsv star-fusion.fusion_predictions_A375.tsv
+
+-Input dependencies
+    +in order for each table to reflect the cell line names properly, the title of the input
+     files MUST BE in the format that STAR-Fusion produces them.
+        IE: files must be in format of
+                star-fusion.fusion_predictions_Cell-Line.tsv
+    +FOR BRU-SEQ v BRU-CHASE data comparisons, IF ONLY 2 INPUT FILES ARE PROVIDED THE
+     PROGRAM ASSUMES THAT YOU ARE DOING BRU-SEQ v BRU-CHASE ON THE SAME CELL LINE
+
+REQUIRES:
+    -at most 4 .tsv files that follow the format of the STAR-Fusion files found on
+     the STAR-Fusion wiki (https://github.com/STAR-Fusion/STAR-Fusion/wiki)
+    -providing only 2 .tsv files will have the program assume that you are attempting
+     to do BRU-Chase v BRU-SEQ data anlysis
+MODIFIES:
+    -nothing
+EFFECTS:
+    -2 possible outputs from the file
+        -STAR-DATA.txt: this file will include comparisons between 3-4 fusion files.
+         Within each file is 4 tables
+            +Cell Line Collection Summary
+            +Frequent Genes and Their Relations
+                -will display genes that appear AT LEAST 2X in at least 1 cell line
+            +Fusions seen in 2 cell lines
+            +Fusions seen in 3+ cell lines
+        -STAR-Bru-Chase-Data.txt: this file will show comparisons between 2 files assuming that
+         one file is BRU-Chase-Seq data and one is BRU-Seq data. Contains 3 tables
+            +Cell Line Collection Summary
+            +Frequent Genes and Their Relations
+            +Fusions Shared
+"""
+
+
+
+
+
 import os
 import sys
 from statistics import stdev
@@ -6,7 +55,7 @@ from collections import Counter
 
 
 def main():
-    #read in all file names
+    #read in file names
     fileNameCellA = sys.argv[1]
     fileNameCellB = sys.argv[2]
 
@@ -16,7 +65,7 @@ def main():
     nameCellLineB = sys.argv[2].strip().split('_')
 
 
-    #all necessary containers for comparison for cell line A
+    #initialize all necessary containers for comparison for cell line A
     fusionNameCellA = set()
     leftGeneCellA = dict()
     leftGeneBreakCellA = dict()
@@ -52,13 +101,14 @@ def main():
     annotsCellD = dict()
     leftAndRightGenesD = list()
 
+    #create a list that will contain all genes from all cell lines
     totalGeneList = list()
 
     #read thru each file and append/extend/update each container as necessary
     if os.path.exists(fileNameCellA):
         with open(fileNameCellA, 'r') as infile:
             for line in infile:
-                #should ignore the immediate header files
+                #should ignore the immediate header row
                 if line.startswith("#"): continue
                 #create a list of each string in a row
                 parts = line.strip().split("\t")
@@ -66,7 +116,7 @@ def main():
                 left_rightGene = parts[0].strip().split('--')
                 left_break = parts[5].strip().split(':')
                 right_break = parts[7].strip().split(':')
-                #add each element into its respective dictionary
+                #add each element into its respective container
                 fusionNameCellA.add(parts[0])
                 leftGeneCellA.update({parts[0]: left_rightGene[0]})
                 leftGeneBreakCellA.update({parts[0]: left_break[1]})
@@ -79,7 +129,7 @@ def main():
     if os.path.exists(fileNameCellB):
         with open(fileNameCellB, 'r') as infile:
             for line in infile:
-                #should ignore the immediate header files
+                #should ignore the immediate header row
                 if line.startswith("#"): continue
                 #create a list of each string in a row
                 parts = line.strip().split("\t")
@@ -87,7 +137,7 @@ def main():
                 left_rightGene = parts[0].split('--')
                 left_break = parts[5].strip().split(':')
                 right_break = parts[7].strip().split(':')
-                #add each element into its respective dictionary
+                #add each element into its respective container
                 fusionNameCellB.add(parts[0])
                 leftGeneCellB.update({parts[0]: left_rightGene[0]})
                 leftGeneBreakCellB.update({parts[0]: left_break[1]})
@@ -104,7 +154,7 @@ def main():
         if os.path.exists(fileNameCellC):
             with open(fileNameCellC, 'r') as infile:
                 for line in infile:
-                    #should ignore the immediate header files
+                    #should ignore the immediate header row
                     if line.startswith("#"): continue
                     #create a list of each string in a row
                     parts = line.strip().split("\t")
@@ -112,7 +162,7 @@ def main():
                     left_rightGene = parts[0].split('--')
                     left_break = parts[5].strip().split(':')
                     right_break = parts[7].strip().split(':')
-                    #add each element into its respective dictionary
+                    #add each element into its respective container
                     fusionNameCellC.add(parts[0])
                     leftGeneCellC.update({parts[0]: left_rightGene[0]})
                     leftGeneBreakCellC.update({parts[0]: left_break[1]})
@@ -123,7 +173,7 @@ def main():
         if os.path.exists(fileNameCellD):
             with open(fileNameCellD, 'r') as infile:
                 for line in infile:
-                    #should ignore the immediate header files
+                    #should ignore the immediate header row
                     if line.startswith("#"): continue
                     #create a list of each string in a row
                     parts = line.strip().split("\t")
@@ -131,7 +181,7 @@ def main():
                     left_rightGene = parts[0].split('--')
                     left_break = parts[5].strip().split(':')
                     right_break = parts[7].strip().split(':')
-                    #add each element into its respective dictionary
+                    #add each element into its respective container
                     fusionNameCellD.add(parts[0])
                     leftGeneCellD.update({parts[0]: left_rightGene[0]})
                     leftGeneBreakCellD.update({parts[0]: left_break[1]})
@@ -139,7 +189,9 @@ def main():
                     rightGeneBreakCellD.update({parts[0]: right_break[1]})
                     annotsCellD.update({parts[0]: parts[16]})
                     leftAndRightGenesD.extend((left_rightGene[0], left_rightGene[1]))
+
         #add to each set the fusions that are shared among the cell lines being compared
+            #done using the set.intersection function to isolate those shared fusions
         totalGeneList = leftAndRightGenesA + leftAndRightGenesB + leftAndRightGenesC + leftAndRightGenesD
         AtoBNameConnections = set.intersection(fusionNameCellA, fusionNameCellB)
         AtoCNameConnections = set.intersection(fusionNameCellA, fusionNameCellC)
@@ -152,13 +204,15 @@ def main():
         AtoCtoDNameConnections = set.intersection(fusionNameCellA, fusionNameCellC, fusionNameCellD)
         BtoCtoDNameConnections = set.intersection(fusionNameCellB, fusionNameCellC, fusionNameCellD)
         AtoBtoCtoDNameConnections = set.intersection(fusionNameCellA, fusionNameCellB, fusionNameCellC, fusionNameCellD)
+
         #create a Counter that will organize the genes into most frequent
             #-the counter is a dictionary where each key is each gene and the value will be its frequency
         mostComGenesA = Counter(leftAndRightGenesA)
         mostComGenesB = Counter(leftAndRightGenesB)
         mostComGenesC = Counter(leftAndRightGenesC)
         mostComGenesD = Counter(leftAndRightGenesD)
-        #make sets of the intersection between different cell lines to find the common genes between cell lines
+
+        #make sets of the intersection between different cell lines left and right genes list to find the common genes between cell lines
         comGenesA_B = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesB))
         comGenesA_C = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesC))
         comGenesA_D = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesD))
@@ -170,6 +224,8 @@ def main():
         comGenesA_C_D = set.intersection(set(leftAndRightGenesA), set(leftAndRightGenesC), set(leftAndRightGenesD))
         comGenesB_C_D = set.intersection(set(leftAndRightGenesB), set(leftAndRightGenesC), set(leftAndRightGenesD))
         comGenesA_B_C_D = set.intersection(set(leftAndRightGenesB), set(leftAndRightGenesA), set(leftAndRightGenesC), set(leftAndRightGenesD))
+
+
         #create table to show number of fusions shared and number of genes shared between cell lines
             #beautifultable is a python extension that allows our data to be printed to the terminal in a lovely clear fashion
         FusionNumberTable = BeautifulTable(max_width = 200)
@@ -193,9 +249,11 @@ def main():
         FusionNumberTable.row_separator_char = ''
         FusionNumberTable.intersection_char = ''
         FusionNumberTable.column_separator_char = ':'
+
         #Create the tables for each gene fusion connection
         FusionTable = BeautifulTable(max_width = 200)
         FusionTable.column_headers = ["Connection","Fusion Name", "Left Gene", "Right Gene", "Difference in Left Gene Breakpoint", "Difference in Right Gene Breakpoint", "Annotation of Fusion"]
+        #get each left and right gene from each respective fusion dictionary, subtract the difference between the breakpoints
         for fusion in AtoBNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
@@ -244,6 +302,7 @@ def main():
         #create table to describe connections of fusions in 3+ cell lines
         FusionTableThreePlus = BeautifulTable(max_width = 200)
         FusionTableThreePlus.column_headers = ["Fusion", "Connection", "Left Gene", "Right Gene", "Left Break St Dev", "Right Break St Dev", "Annotation"]
+        #similar procedure to the previous table but instead of finding the difference, we use the standard deviation function
         for fusion in AtoBtoCNameConnections:
             leftGene = leftGeneCellA[fusion]
             rightGene = rightGeneCellA[fusion]
@@ -295,6 +354,7 @@ def main():
         #create table to describe the genes seen multiple times within cell lines
         FusionTableGeneCommonalities = BeautifulTable(max_width = 200)
         FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurrences in Cell Line A", "Occurrences in Cell Line B", "Occurrences in Cell Line C", "Occurrences in Cell Line D"]
+        #if a gene occurs more than twice in one cell line then it will be added to the table
         for gene in set(totalGeneList):
             a_occur = 0
             b_occur = 0
@@ -319,7 +379,7 @@ def main():
         FusionTableGeneCommonalities.intersection_char = ''
         FusionTableGeneCommonalities.column_separator_char = ':'
 
-        #some formating of the table before
+        #some formating of the table before we print
         FusionTable.width_exceed_policy = BeautifulTable.WEP_WRAP
         FusionTableThreePlus.width_exceed_policy = BeautifulTable.WEP_WRAP
         FusionTableGeneCommonalities.width_exceed_policy = BeautifulTable.WEP_WRAP
@@ -328,7 +388,6 @@ def main():
         FusionTableThreePlus.sort("Fusion")
         FusionTableGeneCommonalities.sort("Common Gene")
         FusionNumberTable.sort("# of Fusions Shared", reverse = 1)
-
         uniqueGenesA = set(list(leftGeneCellA.values()) + list(rightGeneCellA.values()))
         uniqueGenesB = set(list(leftGeneCellB.values()) + list(rightGeneCellB.values()))
         uniqueGenesC = set(list(leftGeneCellC.values()) + list(rightGeneCellD.values()))
@@ -337,10 +396,7 @@ def main():
 
 
         file = open("Star-Data.txt", "w")
-
         #start printing everything
-
-
         file.write("A refers to %s, B refers to %s, C refers to %s, D refers to %s" % (nameCellLineA[2], nameCellLineB[2], nameCellLineC[2], nameCellLineD[2]))
         file.write('\n')
         file.write('\n')
@@ -349,7 +405,7 @@ def main():
         file.write("Number of unique genes in {} = {} \n".format(nameCellLineC[2], len(uniqueGenesC)))
         file.write("Number of unique genes in {} = {} \n".format(nameCellLineD[2], len(uniqueGenesD)))
         file.write('\n')
-        file.write("Common Genes Seen In Cell Line Comparisons")
+        file.write("Cell Line Collection Summary")
         file.write('\n')
         file.write(str(FusionNumberTable))
 
@@ -436,7 +492,7 @@ def main():
         file.write("A refers to %s, B refers to %s of %s cell line" % (nameCellLineA[3], nameCellLineB[3], nameCellLineA[2]))
         for i in range(3):
             file.write('\n')
-        file.write("Common Genes Seen In Cell Line Comparisons")
+        file.write("Cell Line Collection Summary")
         file.write('\n')
         file.write(str(FusionNumberTable))
 
@@ -451,8 +507,6 @@ def main():
         file.write("Fusions Seen in 2 Cell Lines")
         file.write('\n')
         file.write(str(FusionTable))
-
-
 
         file.close()
 if __name__ == '__main__':
