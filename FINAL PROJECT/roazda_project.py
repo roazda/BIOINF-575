@@ -12,13 +12,15 @@ ASSIGNMENT DUE: 12/9/2018
     $ python roazda_project.py (path to cell line 1's fusion data file) (path to cell line 2's fusion data file)
     Example:$ python roazda_project.py star-fusion.fusion_predictions_A172.tsv star-fusion.fusion_predictions_A375.tsv
 
--Input dependencies
+-DEPENDENCIES
     +in order for each table to reflect the cell line names properly, the title of the input
      files MUST BE in the format that STAR-Fusion produces them.
         IE: files must be in format of
-                star-fusion.fusion_predictions_Cell-Line.tsv
+                star-fusion.fusion_predictions_(Cell-Line).tsv
     +FOR BRU-SEQ v BRU-CHASE data comparisons, IF ONLY 2 INPUT FILES ARE PROVIDED THE
      PROGRAM ASSUMES THAT YOU ARE DOING BRU-SEQ v BRU-CHASE ON THE SAME CELL LINE
+    +requires that the Counter dictionary and BeautifulTable functionality are already
+     downloaded
 
 REQUIRES:
     -at most 4 .tsv files that follow the format of the STAR-Fusion files found on
@@ -87,7 +89,7 @@ def main():
     annotsCellC = dict()
     leftAndRightGenesC = list()
 
-    #all necessary containers for comparison for cell line D if it exists
+    #initialize all necessary containers for comparison for cell line D if it exists
     fusionNameCellD = set()
     leftGeneCellD = dict()
     leftGeneBreakCellD = dict()
@@ -294,6 +296,7 @@ def main():
         FusionTable.row_separator_char = ''
         FusionTable.intersection_char = ''
         FusionTable.column_separator_char = ':'
+
         #create table to describe connections of fusions in 3+ cell lines
         FusionTableThreePlus = BeautifulTable(max_width = 200)
         FusionTableThreePlus.column_headers = ["Fusion", "Connection", "Left Gene", "Right Gene", "Left Break St Dev", "Right Break St Dev", "Annotation"]
@@ -346,6 +349,7 @@ def main():
         FusionTableThreePlus.row_separator_char = ''
         FusionTableThreePlus.intersection_char = ''
         FusionTableThreePlus.column_separator_char = ':'
+
         #create table to describe the genes seen multiple times within cell lines
         FusionTableGeneCommonalities = BeautifulTable(max_width = 200)
         FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurrences in Cell Line A", "Occurrences in Cell Line B", "Occurrences in Cell Line C", "Occurrences in Cell Line D"]
@@ -461,6 +465,7 @@ def main():
         FusionTable.row_separator_char = ''
         FusionTable.intersection_char = ''
         FusionTable.column_separator_char = ':'
+
         #make a table showing commonalities in gene
         FusionTableGeneCommonalities = BeautifulTable(max_width = 200)
         FusionTableGeneCommonalities.column_headers = ["Common Gene", "Occurrences in Cell Line A", "Occurrences in Cell Line B"]
