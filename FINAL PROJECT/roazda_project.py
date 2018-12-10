@@ -42,11 +42,6 @@ EFFECTS:
             +Frequent Genes and Their Relations
             +Fusions Shared
 """
-
-
-
-
-
 import os
 import sys
 from statistics import stdev
